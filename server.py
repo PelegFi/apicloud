@@ -19,8 +19,11 @@ with app.app_context():
 class categoriesALL(Resource):
     def get(self):
         categories=Category.query.all()
-        categorylist=[category.serialize() for category in categories]
-        return categorylist
+        if categories is not None :
+            categorylist=[category.serialize() for category in categories]
+            return categorylist
+        else:
+            return {"message" : "unable to pull categories "} , 404 
     
 class categoriesONE(Resource):
     def get(self):
